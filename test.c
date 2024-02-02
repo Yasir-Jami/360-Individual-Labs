@@ -10,15 +10,11 @@
  */
 int main(void){
 	char file[50] = "./object.o";
-	//struct stat file_stat;
-	struct stat *file_stat = malloc(sizeof(struct(stat)));
-	//stat(file, file_stat); 	// Retrieve information
+	struct stat file_stat;
 
 	if (S_IFMT == S_IFREG){
 		printf("Regular file.");
 	}
-
-	printf(file_stat->);
 
 	printf("IFMT: %d\nIFREG: %d\nIFCHR: %d\nIFDIR: %d\nIFIFO: %d\nIFLNK: %d\nIFSOCK: %d\n", S_IFMT, S_IFREG, S_IFCHR, S_IFDIR, S_IFIFO, S_IFLNK, S_IFSOCK);
 
@@ -33,6 +29,8 @@ int main(void){
            default:       printf("unknown?\n");                break;
            }
 	 
+
+
 	/*
 	printf("Current mode: %ls\n", st_mode);
 	stat(file, st_mode); // name st_mode of type mode_t	
