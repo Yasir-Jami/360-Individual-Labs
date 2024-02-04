@@ -9,8 +9,12 @@
  * Return: int indicating the file's type
  */
 int main(void){
-	char file[50] = "./object.o";
+	char filename[50] = "./object.o";
+	//FILE fp* = NULL;
 	struct stat file_stat;
+
+	//fopen(file.c);
+	
 
 	if (S_IFMT == S_IFREG){
 		printf("Regular file.");
@@ -31,12 +35,12 @@ int main(void){
 	 
 
 
-	/*
+/*	
 	printf("Current mode: %ls\n", st_mode);
 	stat(file, st_mode); // name st_mode of type mode_t	
 
 	printf("Mode after: %ls\n", st_mode);
-	*/
+*/	
 
 	printf("File mode: %u\n", file_stat.st_mode);
 	

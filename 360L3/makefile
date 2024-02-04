@@ -5,7 +5,7 @@ CC:=gcc
 CFLAGS:= -Wall
 # Do not need c11 since there may be problems, defaults to current highest standard (c20)
 
-fileType: fileType.o #fileTypeTest.o
+fileType: test.o #fileType.o #fileTypeTest.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
