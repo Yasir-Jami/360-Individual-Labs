@@ -1,11 +1,11 @@
 # Name: Yasir Jami (3077942)
-# 360 Lab 3
+# CMPT360 Lab 3
 
 CC:=gcc
 CFLAGS:= -Wall
 # Do not need c11 since there may be problems, defaults to current highest standard (c20)
 
-fileType: test.o #fileType.o #fileTypeTest.o
+fileType: fileType.o fileTypeLib.o 
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c

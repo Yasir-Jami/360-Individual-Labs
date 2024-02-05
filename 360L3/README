@@ -1,0 +1,13 @@
+Test files for the lab (found in testfiles directory)
+
+a.sh		- bash script
+file01.txt	- ascii text
+object.c	- ascii text
+object.o	- ELF relocatable
+plotData.py	- python executable
+
+./testfiles/a.sh
+./testfiles/file01.txt
+./testfiles/object.c
+./testfiles/object.o
+./testfiles/plotData.py

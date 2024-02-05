@@ -1,3 +1,6 @@
+// Name: Yasir Jami (3077942)
+// CMPT360 Lab 3 
+
 #ifndef FILETYPE_H
 #define FILETYPE_H
 
@@ -32,4 +35,13 @@ int asciiOrBinary(char* filename);
  * Filenames can not be used to determine the type (don't look at extension to determine type) 
  * Can look at first four bytes of a file to determine if it is an ELF file
  */
+
+/* printMessage
+ * Purpose: Changes the message to include the type of file or the format (ascii or binary)
+ * Parameters: type: determines if file is of type ELF or executable, 
+ * 	       format: if it is not ELF or executable, determines if file is ascii or binary
+ * Return: the message after determining the type of file or its format
+ */
+void printMessage(int type, int format); 
+
 #endif

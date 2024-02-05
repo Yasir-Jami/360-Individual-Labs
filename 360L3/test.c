@@ -1,48 +1,34 @@
 #include <stdio.h>
-#include <sys/stat.h>
+#include <string.h>
 
-/* fileSystemTests
- * Purpose: Takes a filename as argument, and returns a number indicating its file type
- * regular file=0, directory=1, characterSpecial=2, blockSpecial=3,
- * pipe=4, symbolicLink=5, socket=6
+ /* asciiOrBinary
+ * Purpose: Takes a filename and determines if the file is in ASCII or Binary format
  * Parameters: char* filename: name of file to be examined
- * Return: int indicating the file's type
+ * Return: int indicating whether the file contents are in ASCII or BINARY
  */
-int main(void){
-	char filename[50] = "./object.o";
-	//FILE fp* = NULL;
-	struct stat file_stat;
+int main(int argc, char* argv[]) {
+	FILE *fp;
+    	char file_contents[200]; // Holding first 200 bytes of a given file
+	char* file = argv[1];
+	int buffer_size = 200;	
+	int i = 0;
 
-	//fopen(file.c);
-	
-
-	if (S_IFMT == S_IFREG){
-		printf("Regular file.");
+    	// Read binary
+    	if ((fp = fopen(file, "rb")) == NULL){
+        	printf("Cannot open file.\n");
+        	return -1;
 	}
 
-	printf("IFMT: %d\nIFREG: %d\nIFCHR: %d\nIFDIR: %d\nIFIFO: %d\nIFLNK: %d\nIFSOCK: %d\n", S_IFMT, S_IFREG, S_IFCHR, S_IFDIR, S_IFIFO, S_IFLNK, S_IFSOCK);
+    	// Read the first 200 bytes of the provided file
+    	fread(file_contents, buffer_size, 1, fp);
+    	fclose(fp);	
 
-	 switch (file_stat.st_mode & S_IFMT) {
-           case S_IFBLK:  printf("block device\n");            break;
-           case S_IFCHR:  printf("character device\n");        break;
-           case S_IFDIR:  printf("directory\n");               break;
-           case S_IFIFO:  printf("FIFO/pipe\n");               break;
-           case S_IFLNK:  printf("symlink\n");                 break;
-           case S_IFREG:  printf("regular file\n");            break;
-           case S_IFSOCK: printf("socket\n");                  break;
-           default:       printf("unknown?\n");                break;
-           }
-	 
-
-
-/*	
-	printf("Current mode: %ls\n", st_mode);
-	stat(file, st_mode); // name st_mode of type mode_t	
-
-	printf("Mode after: %ls\n", st_mode);
-*/	
-
-	printf("File mode: %u\n", file_stat.st_mode);
-	
+	// Check each byte - if there is a non-ascii byte, it is binary
+	while(i < buffer_size){
+		if ((file_contents[i] < 0) || (file_contents[i] > 127)){
+			return 1; // Not ASCII - contains non-ASCII bytes
+		}
+		i++;
+	}	
 	return 0;
 }
