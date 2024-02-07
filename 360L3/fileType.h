@@ -1,15 +1,10 @@
-#include <stdio.h>
-#include <string.h>
-#include <sys/stat.h>
+// Name: Yasir Jami (3077942)
+// CMPT360 Lab 3 
 
-/*
- *fp = fopen(fileloc, "r");
-        if (fp == NULL){
-        	printf("Could not open file.\n");
-                continue;
-           }
-*/
+#ifndef FILETYPE_H
+#define FILETYPE_H
 
+// STAT FUNCTION CAN BE USED FOR THIS LAB 
 
 /* fileSystemTests
  * Purpose: Takes a filename as argument, and returns a number indicating its file type
@@ -18,13 +13,7 @@
  * Parameters: char* filename: name of file to be examined
  * Return: int indicating the file's type
  */
-int fileSystemTests(char* file){
-	stat(fileloc, st_mode); // name st_mode of type mode_t
-	
-
-
-	return 0;
-}
+int fileSystemTests(char* filename);
 
 /* magicNumberTests
  * Purpose: Takes a filename (which can be assumed to be a regular file) as an argument and determines 
@@ -33,22 +22,26 @@ int fileSystemTests(char* file){
  * Parameters: char* filename: name of file to be examined
  * Return: int indicating whether it is an ELF or executable, and what kind it is
  */
-int magicNumberTests(char* file){
-	return 0;
-}
+int magicNumberTests(char* filename);
 
 /* asciiOrBinary
  * Purpose: Takes a filename and determines if the file is in ASCII or Binary format
  * Parameters: char* filename: name of file to be examined 
  * Return: int indicating whether the file contents are in ASCII or BINARY
  */
-int asciiOrBinary(char* file){
-	return 0;
-}
+int asciiOrBinary(char* filename);
 
 /* Additional Notes:
  * Filenames can not be used to determine the type (don't look at extension to determine type) 
  * Can look at first four bytes of a file to determine if it is an ELF file
  */
 
+/* printMessage
+ * Purpose: Changes the message to include the type of file or the format (ascii or binary)
+ * Parameters: type: determines if file is of type ELF or executable, 
+ * 	       format: if it is not ELF or executable, determines if file is ascii or binary
+ * Return: the message after determining the type of file or its format
+ */
+void printMessage(int type, int format); 
 
+#endif
