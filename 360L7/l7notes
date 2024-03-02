@@ -1,0 +1,32 @@
+pi = 3.14|159...
+
+e = 1x10^-7 or 1e-7
+
+NOTE: error essentially means how many decimal places
+
+y = sigma f(i): i = 0 --> infinity
+
+while i + 
+	y = y + f()
+	yOld = y
+
+We're not summing to infinity, we are only summing up to the precision (error) that we want.
+
+Use assert statements to check if they pass for question 4
+
+///////////////
+while(1){
+	y = y + f()
+	n++; // i or n, n in this case for whatever reason
+	if (){
+		break
+	}
+}
+end 
+(return yold = y)
+///////////////
+
+y = sigma f(i); i = 0 --> approaching infinity
+
+
+Only when you've converged down to a very small value (up to error) do you get the final value
