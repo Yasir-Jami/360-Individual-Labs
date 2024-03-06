@@ -34,12 +34,13 @@ double pi_serial(double *x, double e){
 	double y = *x;
 	double yOld;
 	double error;
-	double constant1 = 1.0;
-	double constant2 = 4.0;
+	double a = 1.0; // Constant 1 in formula
+	double b = 4.0; // Constant 2 in formula
+	double c = 2.0; // Constant 3 in formula (power)
 	int n = 1; // For numerator and denominator
-	int i = 0;
-	double numerator = y * (constant1 + (constant1/(constant2*pow((double) n, (double) n)-constant1)));
-	double denominator = y + (constant1/(constant2*pow((double) n, (double) n)-constant1));
+	int i = 0;	
+	double numerator = (a + (a/(b*pow((double) n, c)-a))) * (a + (a/(b*pow((double) n, c)-a)));
+	double denominator = (a/(b*pow((double) n, c)-a)) + (a/(b*pow((double) n, c)-a));
 	y = (numerator/denominator);
 	printf("Current pi: %f\nCurrent n: %d\n", y, n);
 
@@ -47,19 +48,22 @@ double pi_serial(double *x, double e){
 	while (1){
 		yOld = y;
 		n++;
-		numerator = y * (constant1 + (constant1/(constant2*pow((double) n,(double) n)-constant1)));
-		denominator = y + (constant1/(constant2*pow((double) n, (double) n)-constant1));
+		numerator = (a + (a/(b*pow((double) n, c)-a))) * (a + (a/(b*pow((double) n, c)-a)));
+		denominator = (a/(b*pow((double) n, c)-a)) + (a/(b*pow((double) n, c)-a));
 		y = (numerator/denominator);
 		error = fabs(y-yOld);
 		printf("Current pi: %f at iteration %d\nCurrent error: %f\n", y, n, error);
 		
 		// Continue while current error is less than the precision we set 
 		// if (error <= e)
-		if (n == 10){ // Arbitrary, just want to see what it prints at n=10	
+		if (n == 100){ // Arbitrary, just want to see what it prints at n=10	
 			break;
 		}
 	}
 	yOld = y;
+
+	printf("4*(3)^2 = %f\n", 4.0*pow(3.0, 2.0));
+	printf("4*(1)^2 = %f\n", 4.0*pow(1.0, 2.0));		
 	return yOld;
 }
 
