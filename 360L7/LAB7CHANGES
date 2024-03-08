@@ -1,0 +1,12 @@
+1) can make (pi or y) a global variable
+
+2) Testing: don't necessarily need to use assert --> |PI - PIActual|
+
+
+error  = |y - yOld| (estimate is inside your function) 
+
+PIActual
+
+Err is increasing from one step to the other
+
+Looking at the differnce between y and yOld, not y and yActual
