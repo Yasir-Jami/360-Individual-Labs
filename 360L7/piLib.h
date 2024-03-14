@@ -1,3 +1,6 @@
+// Yasir Jami (3077942)
+// CMPT360 Lab 7 
+
 #ifndef PILIB_H
 #define PILIB_H
 

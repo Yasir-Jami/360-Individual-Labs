@@ -1,3 +1,6 @@
+// Yasir Jami (3077942)
+// CMPT360 Lab 7
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,10 +11,6 @@
 #include <sys/sysinfo.h>
 #include "piLib.h"
 
-// mutex and semaphore variables
-pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-sem_t sem_lock;
-
 // Example input: e = 0.001 (1x10^-3)
 
 // Equation used:
@@ -19,6 +18,10 @@ sem_t sem_lock;
 
 // Error is defined as y = |y - yold| (absolute value of our current iteration of y - our previous iteration of y)
 // While error is <= to the precision defined at the start, e, we should keep going
+
+// mutex and semaphore variables
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+sem_t sem_lock;
 
 double pi_serial(double *x, double e){
 	double y = *x;
@@ -113,6 +116,7 @@ double pi_mutex(double *x, double e, int threads){
 	return y;
 }
 
+// pi_semaphore helper function
 void* semaphorefun(void* args){
 	struct data* d = (struct data*) args;
 	double yOld;
@@ -120,8 +124,8 @@ void* semaphorefun(void* args){
 	double b = 4.0; // Constant 2 in formula
 	double c = 2.0; // Constant 3 in formula (power)
 
-	// Each thread will iterate 500 times before mutex unlocks 
-        sem_wait(&sem_lock);	
+	// Allows two threads to access resources simultaneously
+        sem_wait(&sem_lock);
         while (1){
 		yOld = *(d->y);
 		++*(d->n);
@@ -156,7 +160,8 @@ double pi_semaphore(double *x, double e, int threads){
 	int nprocs = threads;
 	pthread_t tid[nprocs];
 	struct data pidata[nprocs];
-	sem_init(&sem_lock, 0, nprocs); // Initialize to number of threads
+	// Allows multiple threads access until reaching 0 (in this case, 2 threads are allowed)
+	sem_init(&sem_lock, 0, 2); // I would initialize to 0,1, but then it's essentially no different from "pi_mutex"
 
 	// Continue making and remaking threads until reaching set error
 	while (error > e){

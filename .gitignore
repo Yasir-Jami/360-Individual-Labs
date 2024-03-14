@@ -1,3 +1,4 @@
 360tar/
 360misc/
 *.o
+*.tar.gz

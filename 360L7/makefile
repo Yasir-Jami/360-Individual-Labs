@@ -1,4 +1,4 @@
-# Name: Yasir Jami (3077942)
+# Yasir Jami (3077942)
 # CMPT360 Lab 7
 
 CC:=gcc
