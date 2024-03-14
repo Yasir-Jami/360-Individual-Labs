@@ -4,7 +4,7 @@
 CC:=gcc
 CFLAGS:= -Wall
 
-pi: piLib.o
+pi: piLib.o test.o
 	$(CC) $(CFLAGS) -o $@ $^ -lm -pthread
 
 %.o: %.c
