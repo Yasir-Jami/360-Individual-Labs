@@ -20,7 +20,7 @@ double pi_serial(double *x, double e);
  * int - number of threads to run on
  * return: the value of pi
  */
-double pi_mutex(double y, double e, int threads);
+double pi_mutex(double *x, double e, int threads);
 
 /*
  * pi_semaphore
@@ -31,6 +31,6 @@ double pi_mutex(double y, double e, int threads);
  * int - number of threads to run on
  * return: the value of pi
  */
-double pi_semaphore(double y, double e, int threads);
+double pi_semaphore(double *x, double e, int threads);
 
 #endif 

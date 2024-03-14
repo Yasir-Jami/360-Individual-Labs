@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+#include <pthread.h>
+#include <semaphore.h>
 #include "piLib.h"
 
 // Example input: e = 0.001 (1x10^-3)
@@ -38,9 +40,8 @@ double pi_serial(double *x, double e){
 	double b = 4.0; // Constant 2 in formula
 	double c = 2.0; // Constant 3 in formula (power)
 	int n = 1; // For numerator and denominator
-	int i = 0;	
-	double numerator = (a + (a/(b*pow((double) n, c)-a))) * (a + (a/(b*pow((double) n, c)-a)));
-	double denominator = (a/(b*pow((double) n, c)-a)) + (a/(b*pow((double) n, c)-a));
+	double numerator = (a + (a/(b*pow((double) n, c)-a)));
+	double denominator = (a/(b*pow((double) n, c)-a));
 	y = (numerator/denominator);
 	printf("Current pi: %f\nCurrent n: %d\n", y, n);
 
@@ -48,33 +49,53 @@ double pi_serial(double *x, double e){
 	while (1){
 		yOld = y;
 		n++;
-		numerator = (a + (a/(b*pow((double) n, c)-a))) * (a + (a/(b*pow((double) n, c)-a)));
-		denominator = (a/(b*pow((double) n, c)-a)) + (a/(b*pow((double) n, c)-a));
-		y = (numerator/denominator);
+		//numerator = (y*denominator) * (a + (a/(b*pow((double) n, c)-a)));
+		//denominator = (y*pow(denominator, 2)/numerator) + (a/(b*pow((double) n, c)-a));
+		numerator = numerator * (a + (a/(b*pow((double) n, c)-a)));
+		denominator = denominator + (a/(b*pow((double) n, c)-a));	
+		y = numerator/denominator;
 		error = fabs(y-yOld);
-		printf("Current pi: %f at iteration %d\nCurrent error: %f\n", y, n, error);
-		
+		printf("Error at iteraion %d: %f\n", n, error);	
 		// Continue while current error is less than the precision we set 
 		// if (error <= e)
-		if (n == 100){ // Arbitrary, just want to see what it prints at n=10	
+		if (error < e){ // Arbitrary, just want to see what it prints at n=10	
 			break;
 		}
 	}
 	yOld = y;
-
-	printf("4*(3)^2 = %f\n", 4.0*pow(3.0, 2.0));
-	printf("4*(1)^2 = %f\n", 4.0*pow(1.0, 2.0));		
+	printf("Final error: %f\n", error);
+	printf("Final pi: %f\n", yOld);
 	return yOld;
 }
 
-// Test
 int main(void){
-	double a = 4.0;
-	pi_serial(&a, 0.0001);
+	double a = 5.0;
+	double e = 0.0000001; // 1E-7
+			      // 0.0000001
+	pi_serial(&a, e);
+	//pi_mutex(&a, e, 4);
+	//pi_semaphore(&a, e, 4);
 }
 
-/*
-double pi_mutex(double x, double e, int threads);
+double pi_mutex(double *x, double e, int threads){
+	double y = *x;
+	double a = 1.0; // Constant 1 in formula
+	double b = 4.0; // Constant 2 in formula
+	double c = 2.0; // Constant 3 in formula (power)
+	int n = 1; // For numerator and denominator
+	double numerator = (a + (a/(b*pow((double) n, c)-a)));
+	double denominator = (a/(b*pow((double) n, c)-a));
+	y = (numerator/denominator);
 
-double pi_semaphore(double x, double e, int threads);
-*/
+		
+	
+	return *x;
+}
+
+
+double pi_semaphore(double *x, double e, int threads){
+	return *x;
+}
+
+
+
